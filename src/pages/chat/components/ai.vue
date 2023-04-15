@@ -1,0 +1,63 @@
+<template>
+    <div>
+        <MarkdownIt :source="answer"></MarkdownIt>
+    </div>
+</template>
+<script setup>
+import { ref,watch} from "vue"
+import MarkdownIt from "@/components/markdown-it.vue";
+const props = defineProps({
+    data: {
+        type: [Object]
+    }
+})
+const answer =ref('')
+watch(()=> props.data, () => {
+    sendChat();
+}, {
+    immediate:true,
+    deep: true
+})
+// 调用接口获取内容
+function sendChat() {
+    window.fetch("https://openai.hanjunty.top/v1/chat/completions", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer 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"
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        body: JSON.stringify({
+            "model": "gpt-3.5-turbo",
+            "stream": true,
+            "messages": [{"role": "user", "content": props.data.question}]
+          })
+    }).then(res => res.body).then(body => {
+        const reader = body?.getReader();
+        const textDecoder = new TextDecoder();
+        function pump() {
+            return reader.read().then(({ done, value }) => {
+              // 读不到更多数据就关闭流
+              if (done) {
+                return;
+              }
+              // 将下一个数据块置入流中
+              const content = textDecoder.decode(value)
+              const strings = content.split("\n\n").filter(item => item).map((item,index) => {
+                const [,jsonString] = item.split("data: ")
+                console.log('<',item,'>', index)
+                if(jsonString !== '[DONE]' && jsonString.endsWith('}')) {
+                    const temp = JSON.parse(jsonString)
+                    const {choices:[{ delta: { content } }]} = temp;
+                    return content
+                }
+              }).filter(item => item)
+              const text = strings.join();
+              answer.value = answer.value + text
+              return pump();
+            });
+          }
+          pump();
+    })
+}
+</script>

@@ -5,7 +5,9 @@
     <!-- 内容 -->
     <div class="chat_content">
        <template v-for="item of store.list">
-            <component :is="componentsMap[item.type]" :data="item"></component>
+        <div class="content_line">
+          <component :is="componentsMap[item.type]" :data="item"></component>
+        </div>
       </template>
     </div>
     <Search v-model="question" show-action  placeholder="请输入问题">
@@ -38,10 +40,10 @@ const onClickButton = () => {
     question: question.value,
     type: "self"
   })
-  // store.list.push({
-  //   question: question.value,
-  //   type: "ai"
-  // })
+  store.list.push({
+    question: question.value,
+    type: "ai"
+  })
 }
 </script>
 <style scoped>
@@ -52,5 +54,9 @@ const onClickButton = () => {
 }
 .chat_content {
   flex: 1;
+  overflow: auto;
+}
+.content_line {
+  margin: 0 10px 1em 10px;
 }
 </style>

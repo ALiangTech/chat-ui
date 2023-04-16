@@ -1,10 +1,16 @@
 <template>
-    <div>
-        <MarkdownIt :source="answer"></MarkdownIt>
+    <div class="ai">
+        <div class="avatar">
+            <img src="./svg/self.svg"/>
+        </div>
+        <chatPopover>
+           <MarkdownIt :source="answer"></MarkdownIt>
+        </chatPopover>
     </div>
 </template>
 <script setup>
 import { ref,watch} from "vue"
+import chatPopover from '../../../components/chat-popover-left.vue';
 import MarkdownIt from "@/components/markdown-it.vue";
 const props = defineProps({
     data: {
@@ -24,7 +30,7 @@ function sendChat() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            "Authorization": "Bearer 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"
+            "Authorization": "Bearer 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"
             // 'Content-Type': 'application/x-www-form-urlencoded',
           },
         body: JSON.stringify({
@@ -61,3 +67,8 @@ function sendChat() {
     })
 }
 </script>
+<style>
+.ai {
+    display: flex;
+}
+</style>

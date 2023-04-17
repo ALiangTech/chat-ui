@@ -4,13 +4,15 @@
             <img src="./svg/self.svg"/>
         </div>
         <chatPopover>
-           <MarkdownIt :source="answer"></MarkdownIt>
+           <MarkdownIt :source="answer" v-show="answer"></MarkdownIt>
+           <loading  v-show="!answer"></loading>
         </chatPopover>
     </div>
 </template>
 <script setup>
 import { ref,watch} from "vue"
 import chatPopover from '../../../components/chat-popover-left.vue';
+import loading from "../../../components/loading.vue";
 import MarkdownIt from "@/components/markdown-it.vue";
 const props = defineProps({
     data: {
@@ -26,16 +28,13 @@ watch(()=> props.data, () => {
 })
 // 调用接口获取内容
 function sendChat() {
-    window.fetch("https://openai.hanjunty.top/v1/chat/completions", {
+    window.fetch("http://hanjunty.top:9092/chat", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            "Authorization": "Bearer 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"
             // 'Content-Type': 'application/x-www-form-urlencoded',
           },
         body: JSON.stringify({
-            "model": "gpt-3.5-turbo",
-            "stream": true,
             "messages": [{"role": "user", "content": props.data.question}]
           })
     }).then(res => res.body).then(body => {
@@ -49,17 +48,17 @@ function sendChat() {
               }
               // 将下一个数据块置入流中
               const content = textDecoder.decode(value)
-              const strings = content.split("\n\n").filter(item => item).map((item,index) => {
-                const [,jsonString] = item.split("data: ")
-                console.log('<',item,'>', index)
-                if(jsonString !== '[DONE]' && jsonString.endsWith('}')) {
-                    const temp = JSON.parse(jsonString)
-                    const {choices:[{ delta: { content } }]} = temp;
-                    return content
-                }
-              }).filter(item => item)
-              const text = strings.join();
-              answer.value = answer.value + text
+            //   const strings = content.split("\n\n").filter(item => item).map((item,index) => {
+            //     const [,jsonString] = item.split("data: ")
+            //     console.log('<',item,'>', index)
+            //     if(jsonString !== '[DONE]' && jsonString.endsWith('}')) {
+            //         const temp = JSON.parse(jsonString)
+            //         const {choices:[{ delta: { content } }]} = temp;
+            //         return content
+            //     }
+            //   }).filter(item => item)
+            //   const text = strings.join();
+              answer.value = answer.value + content
               return pump();
             });
           }
@@ -70,5 +69,8 @@ function sendChat() {
 <style>
 .ai {
     display: flex;
+}
+.ai p {
+    margin: 0;
 }
 </style>

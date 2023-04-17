@@ -10,10 +10,11 @@
     flex: 1;
     align-items: center;
     margin-left: 10px;
+    color: #4e4d4d;
 }
 .chat_bubble span {
     display: inline-flex;
-    background-color: aqua;
+    background-color: #dcdae8;
     border-radius: 4px;
     font-size: 12px;
     height: 100%;
@@ -27,7 +28,7 @@
     border-width: 10px 10px 0 0;
     content: "";
     border-style: solid;
-    border-color: aqua transparent transparent transparent;
+    border-color: #dcdae8 transparent transparent transparent;
     left: -2px;
     top: 12px;
     transform: rotate(-48deg);

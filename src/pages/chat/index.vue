@@ -44,6 +44,7 @@ const onClickButton = () => {
     question: question.value,
     type: "ai"
   })
+  question.value = ""
 }
 </script>
 <style scoped>

@@ -14,7 +14,7 @@
 }
 .chat_bubble span {
     display: inline-flex;
-    background-color: aqua;
+    background-color: #95ec69;
     border-radius: 4px;
     font-size: 12px;
     height: 100%;
@@ -28,7 +28,7 @@
     border-width: 10px 10px 0 0;
     content: "";
     border-style: solid;
-    border-color: aqua transparent transparent transparent;
+    border-color: #95ec69 transparent transparent transparent;
     right: -2px;
     top: 12px;
     transform: rotate(136deg);

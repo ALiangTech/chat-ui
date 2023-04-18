@@ -1,7 +1,7 @@
 <template>
   <div class="chat">
     <!-- 顶部 -->
-    <div><nav-bar title="百事助理"   left-text="返回" left-arrow/></div>
+    <div><nav-bar title="百事助理"   left-text="返回" left-arrow @click-left="onClickLeft"/></div>
     <!-- 内容 -->
     <div class="chat_content">
        <template v-for="item of store.list">
@@ -49,6 +49,9 @@ const send = () => {
   } else {
     showNotify({ type: 'warning', message: '问题不能为空' });
   }
+}
+const onClickLeft = () => {
+  history.back();
 }
 </script>
 <style scoped>

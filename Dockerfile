@@ -8,3 +8,6 @@ COPY . /app/
 
 RUN pnpm install \
    && pnpm run build
+
+FROM nginx
+

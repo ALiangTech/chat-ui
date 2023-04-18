@@ -2,7 +2,6 @@
     <div class="com__box">
       <!-- loading -->
       <div class="loading"></div>
-  
     </div>
   </template>
   
@@ -13,7 +12,7 @@
   }
   
   .loading::before {
-    content: "口若悬河";
+    content: "百事";
     color: #1875e5;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 28px;

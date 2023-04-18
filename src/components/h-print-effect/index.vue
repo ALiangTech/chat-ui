@@ -1,26 +1,17 @@
 <template>
     <section class="typed">
         <div class="typed_out">
-            {{ chars }}
+            {{ text }}
         </div>
     </section>
 </template>
 <script setup>
-import { computed } from 'vue';
-import useOutPutToken from './../hooks/useOutputToken'
-
-  const props = defineProps({
-     text: {
+const props = defineProps({
+    text: {
         type: [String],
         default: '我服务于人类，致力于让生活更美好'
-     }
-  })
-  const text = computed(() => props.text)
-  const emits = defineEmits(["print-completed"])
-  const printCompleted = (count) => {
-    emits('print-completed', count)
-  }
-  const { chars } = useOutPutToken({ text, completed:printCompleted })
+    }
+})
 </script>
 <style scoped>
 .typed {
@@ -31,8 +22,9 @@ import useOutPutToken from './../hooks/useOutputToken'
 
 .typed_out {
     font-size: 28px;
- 
+
 }
+
 .typed::after {
     position: absolute;
     display: inline-block;
@@ -54,9 +46,13 @@ import useOutPutToken from './../hooks/useOutputToken'
         width: 100%
     }
 }
-@keyframes blink {
-  from { background-color: transparent }
-  to { background-color: #1875e5; }
-}
 
-</style>
+@keyframes blink {
+    from {
+        background-color: transparent
+    }
+
+    to {
+        background-color: #1875e5;
+    }
+}</style>

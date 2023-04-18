@@ -1,7 +1,7 @@
 <template>
   <div class="chat">
     <!-- 顶部 -->
-    <div>悬河助理</div>
+    <div><nav-bar title="百事助理"   left-text="返回" left-arrow/></div>
     <!-- 内容 -->
     <div class="chat_content">
        <template v-for="item of store.list">
@@ -10,19 +10,19 @@
         </div>
       </template>
     </div>
-    <Search v-model="question" show-action  placeholder="请输入问题">
-      <template #action>
-        <div @click="onClickButton">发送</div>
-      </template>
-    </Search>
+    <div class="submit">
+      <HInput class="input" v-model="question"></HInput>
+      <van-button color="linear-gradient(to right, #ff6034, #ee0a24)" size="normal" @click="send">发送</van-button>
+    </div>
   </div>
 </template>
 <script setup>
 import { reactive ,ref} from "vue"
-import { Search } from 'vant';
+import { NavBar,Button as VanButton } from 'vant';
 import AI from './components/ai.vue'
 import Self from './components/self.vue';
-
+import HInput from './../../components/h-textarea/index.vue'
+import { showNotify } from 'vant';
 
 const AI_TYPE = 'ai';
 const SELF_TYPE = 'self'
@@ -35,8 +35,9 @@ const store = reactive({
 })
 const question = ref('')
 
-const onClickButton = () => {
-  store.list.push({
+const send = () => {
+  if(question.value.replace(/\s*/g, '')) {
+    store.list.push({
     question: question.value,
     type: "self"
   })
@@ -45,6 +46,9 @@ const onClickButton = () => {
     type: "ai"
   })
   question.value = ""
+  } else {
+    showNotify({ type: 'warning', message: '问题不能为空' });
+  }
 }
 </script>
 <style scoped>
@@ -59,5 +63,13 @@ const onClickButton = () => {
 }
 .content_line {
   margin: 0 10px 1em 10px;
+}
+.submit {
+  display: flex;
+  column-gap: 10px;
+  padding: 10px;
+}
+.submit .input {
+  flex: 1;
 }
 </style>

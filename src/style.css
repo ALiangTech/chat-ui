@@ -1,7 +1,11 @@
 * {
     box-sizing: border-box;
 }
+html,body {
+    width: 100%;
+    height: 100%;
+}
 #app {
-    height: 100vh;
+    height: 100%;
     --van-button-default-height: 42px
 }

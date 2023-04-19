@@ -1,7 +1,7 @@
 <template>
     <div class="ai">
         <div class="avatar">
-            <img src="./svg/self.svg"/>
+            <img src="./svg/ai.svg"/>
         </div>
         <chatPopover>
            <MarkdownIt :source="answer" v-show="answer"></MarkdownIt>

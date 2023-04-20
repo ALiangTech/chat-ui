@@ -62,6 +62,8 @@ const updateText = (loopNumber) => {
 .print {
   display: flex;
   justify-content: center;
+  width: 70%;
+  margin: 0 auto;
 
 }
 

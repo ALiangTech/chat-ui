@@ -9,5 +9,7 @@ COPY . /app/
 RUN pnpm install \
    && pnpm run build
 
-FROM nginx
+FROM nginx:1.24.0
+COPY --from=0  /app/default.conf /etc/nginx/conf.d/
+COPY --from=0  /app/dist/ /usr/share/nginx/html/
 

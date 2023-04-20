@@ -19,17 +19,19 @@ import { ref } from 'vue';
 
 const texts = [
   '我是效率助手，也是点子生成机',
-  '我服务于人类，致力于让生活更美好',
-  '我是百事,致力于提供更优的文本解决方案'
+  '我服务于人类，致力于让生活更美好。',
+  '我是百事,致力于提供更优的文本解决方案，我是百事,致力于提供更优的文本解决方案'
 ]
 
-const text = ref('我服务于人类，致力于让生活更美好');
-// 生成 0 到 2 之间的随机整数
-function getRandomInt() {
-  return Math.floor(Math.random() * 3);
-}
-const updateText = () => {
-  text.value = texts[getRandomInt()]
+const text = ref('我是效率助手，也是点子生成机');
+
+const updateText = (loopNumber) => {
+  const tempText = texts[loopNumber]
+  if(tempText) {
+    setTimeout(() => {
+      text.value = tempText
+    }, 500) // todo先这样实现
+  }
 }
 </script>
 <style scoped>

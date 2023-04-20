@@ -1,7 +1,7 @@
 <template>
     <section class="typed">
         <div class="typed_out">
-            <span v-html="charsHtmlVersion"></span>
+            <span class="wrap" v-html="charsHtmlVersion"></span>
             <span class="cursor_wrap"></span>
         </div>
     </section>
@@ -12,7 +12,7 @@ import { computed } from 'vue';
 const props = defineProps({
     text: {
         type: [String],
-        default: '我服务于人类，致力于让生活更美好'
+        default: ''
     }
 })
 const text = computed(() => props.text);
@@ -26,8 +26,8 @@ const { charsHtmlVersion } = useOutPutChar({ text, completed})
 .typed {
     position: relative;
     display: inline-block;
-    /* padding-right: 16px; */
-    margin: 0 16px;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .typed_out {
@@ -35,7 +35,9 @@ const { charsHtmlVersion } = useOutPutChar({ text, completed})
     line-height: 1.5em;
     color: #1875e582;
 }
-
+.wrap {
+    /* text-align: center; */
+}
 .cursor_wrap {
     position: relative;
     padding-left: 4px;

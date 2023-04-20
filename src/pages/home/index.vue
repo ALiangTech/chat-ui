@@ -17,20 +17,22 @@ import loading from './loading.vue';
 import printEffect from './../../components/h-print-effect/index.vue'
 import { ref } from 'vue';
 
+// '我是效率助手，也是点子生成机',
+//   '我服务于人类，致力于让生活更美好。',
 const texts = [
   '我是效率助手，也是点子生成机',
-  '我服务于人类，致力于让生活更美好。',
-  '我是百事,致力于提供更优的文本解决方案，我是百事,致力于提供更优的文本解决方案'
+  '我服务于人类，致力于让生活更美好',
+  '我是百事,致力于提供更优的文本解决方案'
 ]
 
-const text = ref('我是效率助手，也是点子生成机');
+const text = ref('');
 
 const updateText = (loopNumber) => {
   const tempText = texts[loopNumber]
   if(tempText) {
     setTimeout(() => {
       text.value = tempText
-    }, 500) // todo先这样实现
+    }, 1000) // todo先这样实现
   }
 }
 </script>

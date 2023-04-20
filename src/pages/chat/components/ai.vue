@@ -28,7 +28,7 @@ watch(()=> props.data, () => {
 })
 // 调用接口获取内容
 function sendChat() {
-    window.fetch("http://hanjunty.top:9092/chat", {
+    window.fetch("http://api.hanjunty.top:9092/chat", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

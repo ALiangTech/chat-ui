@@ -25,7 +25,8 @@ const { charsHtmlVersion } = useOutPutChar({ text, completed})
 <style scoped>
 .typed {
     position: relative;
-    display: inline-block;
+    display: inline-flex;
+    justify-content: center;
     width: 100%;
     margin: 0 auto;
 }

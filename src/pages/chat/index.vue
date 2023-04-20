@@ -23,7 +23,7 @@ import AI from './components/ai.vue'
 import Self from './components/self.vue';
 import HInput from './../../components/h-textarea/index.vue'
 import { showNotify } from 'vant';
-
+import { useRouter } from "vue-router";
 const AI_TYPE = 'ai';
 const SELF_TYPE = 'self'
 const componentsMap = {
@@ -50,13 +50,14 @@ const send = () => {
     showNotify({ type: 'warning', message: '问题不能为空' });
   }
 }
+const router = useRouter();
 const onClickLeft = () => {
-  history.back();
+  router.push({ path: '/'})
 }
 </script>
 <style scoped>
 .chat {
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -65,7 +66,7 @@ const onClickLeft = () => {
   overflow: auto;
 }
 .content_line {
-  margin: 0 10px 1em 10px;
+  margin: 1em 10px 0 10px ;
 }
 .submit {
   display: flex;

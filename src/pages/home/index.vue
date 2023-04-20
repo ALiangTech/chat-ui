@@ -14,9 +14,8 @@
 <script setup>
 import { Button as vanButton } from "vant";
 import loading from './loading.vue';
-import printEffect from './../../components/print-effect.vue'
+import printEffect from './../../components/h-print-effect/index.vue'
 import { ref } from 'vue';
-import { useDocumentVisibility } from '@vueuse/core'
 
 const texts = [
   '我是效率助手，也是点子生成机',

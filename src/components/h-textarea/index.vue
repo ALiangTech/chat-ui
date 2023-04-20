@@ -10,7 +10,7 @@
   
 <script setup>
 import { useTextareaAutosize } from '@vueuse/core'
-import { computed } from 'vue';
+import { computed,watch } from 'vue';
 const props = defineProps({
   modelValue: {
     type: [String]
@@ -22,7 +22,12 @@ const update = (el) => {
   emits("update:modelValue", value)
 }
 const tempInput = computed(() => props.modelValue)
-const { textarea } = useTextareaAutosize({ input: tempInput })
+const { textarea, triggerResize } = useTextareaAutosize({ input: tempInput })
+watch(() => props.modelValue, () => {
+    setTimeout(() => {
+      triggerResize(); // todo 先这样简单处理
+    }, 10);
+})
 </script>
 <script>
 export default {

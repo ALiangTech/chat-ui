@@ -17,11 +17,12 @@ const props = defineProps({
 .typed {
     position: relative;
     display: inline-block;
-    padding-right: 16px;
+    /* padding-right: 16px; */
+    margin: 0 16px;
 }
 
 .typed_out {
-    font-size: 28px;
+    font-size: 24px;
 
 }
 

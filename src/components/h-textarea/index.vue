@@ -1,23 +1,27 @@
 <template>
-  <div>
-    <div class="input__x">
-      <textarea type="text" :value="props.modelValue" @input="update" ref="textarea" class="input__fill"
-        placeholder="请输入问题" rows="1"></textarea>
-      <label class="input__label">请输入问题</label>
+  <div class="h_textarea_container">
+    <div class="h_textarea">
+        <form class="h_textarea__form">
+          <textarea type="text" :value="props.modelValue" @input="update" @keyup="keyup" ref="textarea" class="h_textarea__fill" placeholder="请输入问题" rows="1"></textarea>
+          <label class="input__label">请输入问题</label>
+        </form>
+      <Arrow class="h_textarea__arrow"/>
     </div>
   </div>
 </template>
   
 <script setup>
 import { useTextareaAutosize } from '@vueuse/core'
+import Arrow from './arrow.vue';
 import { computed,watch } from 'vue';
 const props = defineProps({
   modelValue: {
     type: [String]
   }
 })
-const emits = defineEmits(["update:modelValue"])
+const emits = defineEmits(["update:modelValue", "enter"])
 const update = (el) => {
+  console.log(1)
   const { target: { value } } = el
   emits("update:modelValue", value)
 }
@@ -28,6 +32,22 @@ watch(() => props.modelValue, () => {
       triggerResize(); // todo 先这样简单处理
     }, 10);
 })
+// keyup
+const keyup = (event) => {
+  console.log(2)
+  if (event.key === 'Enter') {
+      if(event.shiftKey) {
+        // 换行
+        event.preventDefault();
+        console.log("shift")
+      } else {
+        // enter
+        event.preventDefault();
+        emits("enter")
+      }
+  }
+  
+}
 </script>
 <script>
 export default {
@@ -35,19 +55,32 @@ export default {
 }
 </script>
 <style scoped>
-.input__x {
-  position: relative;
-  font-size: 0;
+.h_textarea_container {
+  --min-textarea-height: 44px;
+  --arrow-opacity: 0.8;
+  --arrow-height: 1rem;
 }
-
-.input__x textarea {
+.h_textarea {
+  position: relative;
+}
+.h_textarea__form {
+  position: relative;
+}
+.h_textarea__form textarea{
   resize: none;
   overflow: hidden;
-  min-height: 40px;
-
+  min-height: var(--min-textarea-height)
+}
+.h_textarea__arrow {
+  position: absolute;
+  right: 10px;
+  height:var(--arrow-height);
+  width: var(--arrow-height);
+  bottom: calc((var(--min-textarea-height) - var(--arrow-height)) / 2);
+  color: rgba(142,142,160,var(--arrow-opacity));
 }
 
-.input__fill {
+.h_textarea__fill {
   width: 100%;
   outline: none;
   min-height: 40px;
@@ -58,20 +91,20 @@ export default {
   color: #666;
 }
 
-.input__fill:not(:placeholder-shown),
-.input__fill:focus {
+.h_textarea__fill:not(:placeholder-shown),
+.h_textarea__fill:focus {
   border-color: var(--van-nav-bar-text-color);
   ;
 }
 
-.input__fill::placeholder {
+.h_textarea__fill::placeholder {
   color: transparent;
 }
 
 .input__label {
   position: absolute;
   left: 10px;
-  top: 10px;
+  top: 13px;
   transition: transform .25s;
   font-size: 14px;
   padding: 0 6px;
@@ -79,8 +112,8 @@ export default {
   color: #999;
 }
 
-.input__fill:not(:placeholder-shown)~.input__label,
-.input__fill:focus~.input__label {
+.h_textarea__fill:not(:placeholder-shown)~.input__label,
+.h_textarea__fill:focus~.input__label {
   transform: scale(0.75) translate(0, -24px);
   background: #fff;
   color: var(--van-nav-bar-text-color);

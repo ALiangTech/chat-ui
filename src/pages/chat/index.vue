@@ -1,7 +1,7 @@
 <template>
   <div class="chat">
     <!-- 顶部 -->
-    <div><nav-bar title="百事助理"   left-text="返回" left-arrow @click-left="onClickLeft"/></div>
+    <div><nav-bar title="百事助理"   left-text="返回"  right-text="设置" left-arrow @click-left="onClickLeft" @click-right="open"/></div>
     <!-- 内容 -->
     <div class="chat_content">
        <template v-for="item of store.list">
@@ -12,7 +12,7 @@
     </div>
     <div class="submit">
       <HInput class="input" v-model="question"></HInput>
-      <van-button color="linear-gradient(to right, #ff6034, #ee0a24)" size="normal" @click="send">发送</van-button>
+      <!-- <van-button color="linear-gradient(to right, #ff6034, #ee0a24)" size="normal" @click="send">发送</van-button> -->
     </div>
   </div>
 </template>
@@ -24,6 +24,10 @@ import Self from './components/self.vue';
 import HInput from './../../components/h-textarea/index.vue'
 import { showNotify } from 'vant';
 import { useRouter } from "vue-router";
+import { useConfigPopup } from './modules/config/index';
+// 设置
+  const { open } = useConfigPopup()
+//////
 const AI_TYPE = 'ai';
 const SELF_TYPE = 'self'
 const componentsMap = {

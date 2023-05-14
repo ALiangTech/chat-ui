@@ -11,7 +11,7 @@
       </template>
     </div>
     <div class="submit">
-      <HInput class="input" v-model="question"></HInput>
+      <HInput class="input" @enter="send" v-model="question" ></HInput>
       <!-- <van-button color="linear-gradient(to right, #ff6034, #ee0a24)" size="normal" @click="send">发送</van-button> -->
     </div>
   </div>

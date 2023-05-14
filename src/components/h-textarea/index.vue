@@ -2,7 +2,7 @@
   <div class="h_textarea_container">
     <div class="h_textarea">
         <form class="h_textarea__form">
-          <textarea type="text" :value="props.modelValue" @input="update" @keyup="keyup" ref="textarea" class="h_textarea__fill" placeholder="请输入问题" rows="1"></textarea>
+          <textarea type="text" :value="props.modelValue" @input="update" @keydown="keydown" ref="textarea" class="h_textarea__fill" placeholder="请输入问题" rows="1"></textarea>
           <label class="input__label">请输入问题</label>
         </form>
       <Arrow class="h_textarea__arrow"/>
@@ -21,7 +21,6 @@ const props = defineProps({
 })
 const emits = defineEmits(["update:modelValue", "enter"])
 const update = (el) => {
-  console.log(1)
   const { target: { value } } = el
   emits("update:modelValue", value)
 }
@@ -32,21 +31,17 @@ watch(() => props.modelValue, () => {
       triggerResize(); // todo 先这样简单处理
     }, 10);
 })
-// keyup
-const keyup = (event) => {
-  console.log(2)
-  if (event.key === 'Enter') {
-      if(event.shiftKey) {
-        // 换行
-        event.preventDefault();
-        console.log("shift")
-      } else {
-        // enter
-        event.preventDefault();
-        emits("enter")
-      }
+// keydown 
+const keydown = (event) => {
+  if(event.key === "Enter" && event.shiftKey) {
+    // 执行换行
+    return 
   }
-  
+  // 只输入了enter
+  if(event.key === 'Enter') {
+    event.preventDefault();
+    emits("enter")
+  }
 }
 </script>
 <script>

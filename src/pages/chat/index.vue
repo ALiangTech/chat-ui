@@ -40,6 +40,7 @@ const store = reactive({
 const question = ref('')
 
 const send = () => {
+  question.value = question.value.trim();
   if(question.value.replace(/\s*/g, '')) {
     store.list.push({
     question: question.value,

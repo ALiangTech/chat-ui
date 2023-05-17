@@ -65,13 +65,13 @@ const onClickLeft = () => {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-image: url('./../../assets/bg.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 .chat_content {
   flex: 1;
   overflow: auto;
+  background-image: url('./../../assets/bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .content_line {
   margin: 1em 10px 0 10px ;
